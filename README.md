@@ -16,7 +16,7 @@
 
 Execute a task (command) every `x` amount of seconds
 
-_Aliases: `de`, `startevery`, `se`_
+_Aliases: `de`, `startevery`, `sev`_
 
 Usage:
 

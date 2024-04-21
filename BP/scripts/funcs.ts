@@ -1,7 +1,10 @@
 import { Player, system, world, ChatSendBeforeEvent } from "@minecraft/server"
 
 let ints: {
-    [key: string]: number
+    [key: string]: {
+        num: number,
+        exec: string
+    }
 } = {}
 let timeout = 20
 let run: number;
@@ -75,7 +78,7 @@ function doevery(p: Player, msg: string) {
 
             // Rest of doevery code, finally.
 
-            ints[name] = system.runInterval(() => {
+            ints[name].num = system.runInterval(() => {
                 let count: number = 0;
                 try {
                     p.runCommand(executable)
@@ -87,6 +90,7 @@ function doevery(p: Player, msg: string) {
                     }
                 }
             }, secondsToTicks(time))
+            ints[name].exec = executable
 
             r.c();
 
@@ -96,7 +100,7 @@ function doevery(p: Player, msg: string) {
 }
 
 function stopevery(p: Player, msg: string) {
-    const [, name] = msg;
+    const [, name] = msg.split(" ");
     if (!(name in ints)) error(p, `Task with the name (${name}) does not exist.`);
 
     delete ints[name];
@@ -104,7 +108,7 @@ function stopevery(p: Player, msg: string) {
 }
 
 function listevery(p: Player) {
-    const intervalList = Object.keys(ints).map(name => `§lTask Name: §r§o${name}`);
+    const intervalList = Object.keys(ints).map(name => `§lTask Name: §r§o${name} | §lExecutable: §r§o${ints[name].exec}`);
 
     if (intervalList.length == 0) {
         p.sendMessage("No intervals have been set. yet.")

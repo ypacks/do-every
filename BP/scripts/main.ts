@@ -14,7 +14,7 @@ world.afterEvents.chatSend.subscribe((arg) => {
         case "de":
         case "doevery":
         case "startevery":
-        case "se":
+        case "sev":
             doevery(p, message.substring(1));
             break;
         case "stopevery":
