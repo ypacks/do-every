@@ -26,28 +26,33 @@ function doevery(p: Player, msg: string) {
         return;
     }
     let executable: string;
+    let cont = false
 
     p.sendMessage(`Send the chat command you want to execute every ${t} seconds. (Without the slash (/) )`)
 
     event = world.afterEvents.chatSend.subscribe((a) => {
         if (a.sender != p) return;
         if (/^\W/.test(a.message)) {
-            error(p, `Command contained (${a.message[0]}) at the start, so it was ignored.`)
+            error(p, `Command contained (${a.message[0]}) at the start, so it was ignored. Try again big dawg.`)
         }
 
         executable = a.message
         system.clearRun(run)
+        cont = true
         world.beforeEvents.chatSend.unsubscribe(event);
     })
 
     let shouldStop = false;
 
     // user took too long to respond, so remove event, maybe use [current < current + (timeout * 1000)] for calc
-    run = system.runTimeout(() => {
-        error(p, "You took too long to respond. The command subscription has been canceled.");
-        shouldStop = true; // Set the flag variable to indicate that the function should stop.
-        return;
-    }, secondsToTicks(timeout));
+    while (cont == false) {
+        run = system.runTimeout(() => {
+            error(p, "You took too long to respond. The command subscription has been canceled.");
+            shouldStop = true; // Set the flag variable to indicate that the function should stop.
+            cont = true;
+            return;
+        }, secondsToTicks(timeout));
+    }
 
     world.beforeEvents.chatSend.unsubscribe(event);
 
@@ -81,7 +86,7 @@ function stopevery(p: Player, msg: string) {
 }
 
 function listevery(p: Player) {
-    const intervalList = Object.keys(ints).map(name => `§lTask Name: §r§o${name} | §lExecutable: §r§o${ints[name]}`);
+    const intervalList = Object.keys(ints).map(name => `§lTask Name: §r§o${name}`);
 
     if (intervalList.length == 0) {
         p.sendMessage("No intervals have been set. yet.")
