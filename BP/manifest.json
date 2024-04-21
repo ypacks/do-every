@@ -1,0 +1,67 @@
+{
+	"format_version": 2,
+	"metadata": {
+		"authors": [
+			"yetnt"
+		],
+		"generated_with": {
+			"bridge": [
+				"2.7.16"
+			],
+			"dash": [
+				"github:bridge-core/dash-compiler#8fa35c73292f6382747d0f411fca26431a6d2c8e"
+			]
+		}
+	},
+	"header": {
+		"name": "do every",
+		"description": "§lRun a command every (X) amount of seconds. §4Beta Apis in Experimental Features is required for this to work!",
+		"min_engine_version": [
+			1,
+			20,
+			80
+		],
+		"uuid": "0bff64e6-f1f5-436c-8b7f-20130c853863",
+		"version": [
+			1,
+			0,
+			0
+		]
+	},
+	"modules": [
+		{
+			"type": "data",
+			"uuid": "1d6d5f3e-aada-4320-9ec7-bfba2973c03a",
+			"version": [
+				1,
+				0,
+				0
+			]
+		},
+		{
+			"type": "script",
+			"language": "javascript",
+			"uuid": "5c1522e3-2842-4a4d-a211-bbce3b9fea49",
+			"entry": "scripts/main.js",
+			"version": [
+				1,
+				0,
+				0
+			]
+		}
+	],
+	"dependencies": [
+		{
+			"module_name": "@minecraft/server",
+			"version": "1.10.0-beta"
+		},
+		{
+			"module_name": "@minecraft/server-gametest",
+			"version": "1.0.0-beta"
+		},
+		{
+			"module_name": "@minecraft/server-ui",
+			"version": "1.1.0"
+		}
+	]
+}
