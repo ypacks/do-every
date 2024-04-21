@@ -16,7 +16,7 @@ function secondsToTicks(num: number): number {
 }
 
 function doevery(p: Player, msg: string) {
-    const [, name, t] = msg;
+    const [, name, t] = msg.split(" ");
     console.warn(t)
     console.warn(msg)
     const time = parseInt(t);
