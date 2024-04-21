@@ -108,12 +108,13 @@ function stopevery(p: Player, msg: string) {
         return;
     }
 
+    system.clearRun(ints[name].num)
     delete ints[name];
     p.sendMessage("Task has successfully been cleared!")
 }
 
 function listevery(p: Player) {
-    const intervalList = Object.keys(ints).map(name => `§lTask Name: §r§o${name} | §lExecutable: §r§o${ints[name].exec}`);
+    const intervalList = Object.keys(ints).map(name => `§lTask Name: §r§o${name}§r | §lExecutable: §r§o${ints[name].exec}`);
 
     if (intervalList.length == 0) {
         p.sendMessage("No intervals have been set. yet.")
