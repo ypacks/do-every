@@ -78,19 +78,21 @@ function doevery(p: Player, msg: string) {
 
             // Rest of doevery code, finally.
 
-            ints[name].num = system.runInterval(() => {
-                let count: number = 0;
-                try {
-                    p.runCommand(executable)
-                } catch (err) {
-                    count++
-                    if (count > 5) {
-                        delete ints[name]
-                        error(p, `Task with the name (${name}) has failed more than 5 times. Execution has automatically been stopped and task has been cleared.`)
+            ints[name] = {
+                num: system.runInterval(() => {
+                    let count: number = 0;
+                    try {
+                        p.runCommand(executable)
+                    } catch (err) {
+                        count++
+                        if (count > 5) {
+                            delete ints[name]
+                            error(p, `Task with the name (${name}) has failed more than 5 times. Execution has automatically been stopped and task has been cleared.`)
+                        }
                     }
-                }
-            }, secondsToTicks(time))
-            ints[name].exec = executable
+                }, secondsToTicks(time)),
+                exec: executable
+            }
 
             r.c();
 
@@ -101,7 +103,10 @@ function doevery(p: Player, msg: string) {
 
 function stopevery(p: Player, msg: string) {
     const [, name] = msg.split(" ");
-    if (!(name in ints)) error(p, `Task with the name (${name}) does not exist.`);
+    if (!(name in ints)) {
+        error(p, `Task with the name (${name}) does not exist.`);
+        return;
+    }
 
     delete ints[name];
     p.sendMessage("Task has successfully been cleared!")
