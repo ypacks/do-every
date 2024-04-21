@@ -39,22 +39,24 @@ function doevery(p: Player, msg: string) {
         executable = a.message
         system.clearRun(run)
         cont = true
-        world.beforeEvents.chatSend.unsubscribe(event);
+        world.afterEvents.chatSend.unsubscribe(event);
     })
 
     let shouldStop = false;
 
     // user took too long to respond, so remove event, maybe use [current < current + (timeout * 1000)] for calc
     while (cont == false) {
-        run = system.runTimeout(() => {
-            error(p, "You took too long to respond. The command subscription has been canceled.");
-            shouldStop = true; // Set the flag variable to indicate that the function should stop.
-            cont = true;
-            return;
-        }, secondsToTicks(timeout));
+        if (run == undefined) {
+            run = system.runTimeout(() => {
+                error(p, "You took too long to respond. The command subscription has been canceled.");
+                shouldStop = true; // Set the flag variable to indicate that the function should stop.
+                cont = true;
+                return;
+            }, secondsToTicks(timeout));
+        }
     }
 
-    world.beforeEvents.chatSend.unsubscribe(event);
+    world.afterEvents.chatSend.unsubscribe(event);
 
     if (shouldStop) return;
 
