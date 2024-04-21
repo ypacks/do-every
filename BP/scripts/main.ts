@@ -1,7 +1,7 @@
 import { world } from "@minecraft/server"
 import { doevery, stopevery, listevery } from "./funcs"
 
-world.beforeEvents.chatSend.subscribe((arg) => {
+world.afterEvents.chatSend.subscribe((arg) => {
     // !doevery name time
     // !de name time
     const p = arg.sender;

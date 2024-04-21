@@ -17,7 +17,7 @@ function secondsToTicks(num: number): number {
 
 function doevery(p: Player, msg: string) {
     const [, name, t] = msg;
-    p.sendMessage(t)
+    console.warn(t)
     const time = parseInt(t);
 
     if (isNaN(time)) {
@@ -28,7 +28,7 @@ function doevery(p: Player, msg: string) {
 
     p.sendMessage(`Send the chat command you want to execute every ${t} seconds. (Without the slash (/) )`)
 
-    event = world.beforeEvents.chatSend.subscribe((a) => {
+    event = world.afterEvents.chatSend.subscribe((a) => {
         if (a.sender != p) return;
         if (/^\W/.test(a.message)) {
             error(p, `Command contained (${a.message[0]}) at the start, so it was ignored.`)
