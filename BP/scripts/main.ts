@@ -13,6 +13,8 @@ world.beforeEvents.chatSend.subscribe((arg) => {
     switch (message.substring(1).split(" ")[0].toLowerCase()) { // check first param
         case "de":
         case "doevery":
+        case "startevery":
+        case "se":
             doevery(p, message.substring(1));
             break;
         case "stopevery":
