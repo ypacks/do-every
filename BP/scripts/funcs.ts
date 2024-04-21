@@ -18,6 +18,7 @@ function secondsToTicks(num: number): number {
 function doevery(p: Player, msg: string) {
     const [, name, t] = msg;
     console.warn(t)
+    console.warn(msg)
     const time = parseInt(t);
 
     if (isNaN(time)) {
