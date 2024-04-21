@@ -25,7 +25,7 @@ function doevery(p: Player, msg: string) {
     }
     let executable: string;
 
-    p.sendMessage(`Send the chat command you want to execute every ${t} seconds. (Without the slash (/)`)
+    p.sendMessage(`Send the chat command you want to execute every ${t} seconds. (Without the slash (/) )`)
 
     event = world.beforeEvents.chatSend.subscribe((a) => {
         if (a.sender != p) return;
