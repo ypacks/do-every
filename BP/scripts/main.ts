@@ -28,7 +28,7 @@ world.beforeEvents.chatSend.subscribe((arg) => {
         case "list":
         case "listtasks":
         case "l":
-        case "lt"
+        case "lt":
             listevery(p)
             break;
     }
