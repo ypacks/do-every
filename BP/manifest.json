@@ -14,8 +14,8 @@
 		}
 	},
 	"header": {
-		"name": "§ldo every §o§av1.2.0",
-		"description": "§lRun a command every (X) amount of seconds. §4Beta Apis in Experimental Features is required for this to work!",
+		"name": "§ldo every §o§av1.3.0",
+		"description": "§lRun a command every (X) amount of seconds. §4Beta Apis has to enabled in Experimental Features for this to work!",
 		"min_engine_version": [
 			1,
 			21,
@@ -24,7 +24,7 @@
 		"uuid": "0bff64e6-f1f5-436c-8b7f-20130c853863",
 		"version": [
 			1,
-			2,
+			3,
 			0
 		]
 	},
@@ -53,7 +53,7 @@
 	"dependencies": [
 		{
 			"module_name": "@minecraft/server",
-			"version": "1.13.0-beta"
+			"version": "1.12.0-beta"
 		}
 	]
 }
