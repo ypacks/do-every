@@ -14,17 +14,17 @@
 		}
 	},
 	"header": {
-		"name": "do every",
+		"name": "§ldo every §o§av1.2.0",
 		"description": "§lRun a command every (X) amount of seconds. §4Beta Apis in Experimental Features is required for this to work!",
 		"min_engine_version": [
 			1,
-			20,
-			0
+			21,
+			1
 		],
 		"uuid": "0bff64e6-f1f5-436c-8b7f-20130c853863",
 		"version": [
 			1,
-			1,
+			2,
 			0
 		]
 	},
@@ -53,7 +53,7 @@
 	"dependencies": [
 		{
 			"module_name": "@minecraft/server",
-			"version": "1.11.0"
+			"version": "1.13.0-beta"
 		}
 	]
 }
