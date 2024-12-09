@@ -28,14 +28,37 @@ const r = {
     }
 }
 
-function doevery(p: Player, msg: string) {
+
+export const help = {
+    func: (p: Player) => {
+        const msg = [doevery, stopevery, listevery].map(func => {
+            return func(true)
+        })
+        p.sendMessage(msg.join("\n"))
+    }
+}
+
+export function doevery(help: boolean, p?: Player, msg?: string) {
+    // !doevery (Task name) (Amount of time in seconds)
+    const helpString = "§o§2!doevery [Task Name] [Amount in seconds]"
+    if (help) {
+        return helpString + " | Create a new task with the given name and runs every [Amount in seconds]"
+    }
     const [, name, t] = msg.split(" ");
-    console.warn(t)
-    console.warn(msg)
+    if (!name) {
+        error(p, "Enter the task name. \n" + helpString)
+        return
+    }
+    if (Object.keys(ints).filter(n => n == name).length !== 0) {
+        error(p, `A task with the name §o${name}§r already exists!`)
+        return
+    }
+    console.error(name)
+    console.error(t)
     const time = parseInt(t);
 
     if (isNaN(time)) {
-        error(p, "The time must be a valid number! (In seconds)")
+        error(p, "The time must be a valid number! (In seconds)" + "\n" + helpString)
         return;
     }
     let executable: string;
@@ -96,15 +119,20 @@ function doevery(p: Player, msg: string) {
 
             r.c();
 
-            p.sendMessage(`Task with the name (${name}) has been added!`)
+            p.sendMessage(`Task with the name (${name}) has been added! (Tasks reset when the world is left)`)
         }
     })
 }
 
-function stopevery(p: Player, msg: string) {
+export function stopevery(help: boolean, p?: Player, msg?: string) {
+    // !stopevery (Task name)
+    const helpString = "§o§2!stopevery [Task Name]"
+    if (help) {
+        return helpString + " | Stops the given task."
+    }
     const [, name] = msg.split(" ");
     if (!(name in ints)) {
-        error(p, `Task with the name (${name}) does not exist.`);
+        error(p, `Task with the name (${name}) does not exist.` + "\n" + helpString);
         return;
     }
 
@@ -113,11 +141,18 @@ function stopevery(p: Player, msg: string) {
     p.sendMessage("Task has successfully been cleared!")
 }
 
-function listevery(p: Player) {
-    const intervalList = Object.keys(ints).map(name => `§lTask Name: §r§o${name}§r | §lExecutable: §r§o${ints[name].exec}`);
+export function listevery(help: boolean, p?: Player) {
+    // !listevery
+    const helpString = "§o§2!listevery"
+    if (help) {
+        return helpString + " | Lists every task that's active."
+    }
+    const intervalList = Object.keys(ints).map(
+        name => `§lTask Name: §r§o${name}§r | §lExecutable: §r§o/${ints[name].exec}`
+    );
 
     if (intervalList.length == 0) {
-        p.sendMessage("No intervals have been set. yet.")
+        p.sendMessage("No tasks have been set. yet.")
     } else {
         for (const i of intervalList) {
             p.sendMessage(i)
@@ -125,5 +160,3 @@ function listevery(p: Player) {
     }
 
 }
-
-export { doevery, stopevery, listevery }

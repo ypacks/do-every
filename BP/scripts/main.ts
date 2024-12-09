@@ -1,5 +1,5 @@
-import { world } from "@minecraft/server"
-import { doevery, stopevery, listevery } from "./funcs"
+	import { world } from "@minecraft/server"
+import { doevery, stopevery, listevery, help } from "./funcs"
 
 world.afterEvents.chatSend.subscribe((arg) => {
     // !doevery name time
@@ -15,13 +15,13 @@ world.afterEvents.chatSend.subscribe((arg) => {
         case "doevery":
         case "startevery":
         case "sev":
-            doevery(p, message.substring(1));
+            doevery(false, p, message.substring(1));
             break;
         case "stopevery":
         case "se":
         case "endevery":
         case "ee":
-            stopevery(p, message.substring(1))
+            stopevery(false, p, message.substring(1))
             break;
         case "listevery":
         case "le":
@@ -29,7 +29,11 @@ world.afterEvents.chatSend.subscribe((arg) => {
         case "listtasks":
         case "l":
         case "lt":
-            listevery(p)
+            listevery(false, p)
             break;
+        case "?":
+        case "help":
+        case "h":
+            help.func(p)
     }
 })
